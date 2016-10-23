@@ -1,39 +1,29 @@
+
+  #time when program strted
   time_start = Time.now
+  #nember of iterations for looking for combination
   iterator_count = 0
+  #name of win combination
+  win_combination = ""
+  #marker if win combination founded
+  marker_of_win = 0
+  #massive of win combinations
+  win_cards = []
 
 
 
-  #add 52 cards
+
+  #massive for fast  calculating
   a = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52]
-
+  #massive for conversion to cards' names
   hash_massive = {1 => "2 heart", 2 => "3 heart", 3 => "4 heart", 4 => "5 heart", 5 => "6 heart", 6 => "7 heart", 7 => "8 heart", 8 => "9 heart", 9 => "10 heart", 10 => "jack heart", 11 => "queen heart", 12 => "king heart", 13 => "ace heart", 14 => "2 diamond", 15 => "3 diamond", 16 => "4 diamond", 17 => "5 diamond", 18 => "6 diamond", 19 => "7 diamond", 20 => "8 diamond", 21 => "9 diamond", 22 => "10 diamond", 23 => "jack diamond", 24 => "queen diamond", 25 => "king diamond", 26 => "ace diamond", 27 => "2 club", 28 => "3 club", 29 => "4 club", 30 => "5 club", 31 => "6 club", 32 => "7 club", 33 => "8 club", 34 => "9 club", 35 => "10 club", 36 => "jack club", 37 => "queen club", 38 => "king club", 39 => "ace club", 40 => "2 spade", 41 => "3 spade", 42 => "4 spade", 43 => "5 spade", 44 => "6 spade", 45 => "7 spade", 46 => "8 spade", 47 => "9 spade", 48 => "10 spade", 49 => "jack spade", 50 => "queen spade", 51 => "king spade", 52 => "ace spade"}
-
+  #generate the cards on the table
   cards = []
   cards = a.shuffle.first(7)
   cards.shuffle!
 
-  puts "cards = #{cards.inspect}"
-
-  #combination at the hands of player
-  hands = [cards[0], cards[6]]
-  #combination on the table
-  table = [cards[1], cards[2], cards[3], cards[4], cards[5]]
-  puts "hands = #{hands.inspect}"
-  puts "table = #{table.inspect}"
-
-  m1 = cards
-
-  def sorting(massive)
-  ret = []
-  ret = massive.sort {|x,y| x<=>y}
-  return [*ret]
-  end
-
-  a1 = sorting(m1)
-  puts "a1 = #{a1.inspect}"
-
-
-  #method for the conversion of numbers to cards from hash - работает.написанному верить.
+  ##! methods for use
+  #method for the conversion of numbers to cards from hash - работает,написанному верить.
   def conversion(arr, hash_massive)
     rtrn = ""
     arr.each do |i|
@@ -44,15 +34,15 @@
     end
   end
 
+  # massive sorting
+  def sorting(massive)
+    ret = []
+    ret = massive.sort {|x,y| x<=>y}
+    return [*ret]
+  end
 
-
-
-  ########################
-  # defining if any combination is present
-
-
-  #def combinations(a1, hands)
-    marker_of_win = 0
+  # method for defining if any win combination is present
+  def combinations(a1, hands, marker_of_win)
     #isRoyalFlush
     if marker_of_win != 1
       for i in 0..6 do
@@ -85,8 +75,10 @@
     if marker_of_win != 1
       for j in 0..3
         if ((a1[j])==(a1[j+1]-13)&&((a1[j+1])==(a1[j+2]-13)) && ((a1[j+2]) == (a1[j+3]-13)))
-          win_combination = "isQuads"
-          marker_of_win = 1
+          if ((a1[i]==hands[0]) || (a1[i]==hands[1]))
+            win_combination = "isQuads"
+            marker_of_win = 1
+          end
         end
       end
     end
@@ -97,8 +89,10 @@
           for i in 0..5
             if (a1[i] == (a1[i+1]-13))
               if (i!=j)
-                win_combination = "isFullHouse"
-                marker_of_win = 1
+                if ((a1[i]==hands[0]) || (a1[i]==hands[1]))
+                  win_combination = "isFullHouse"
+                  marker_of_win = 1
+                end
               end
             end
           end
@@ -122,8 +116,11 @@
       temp = temp.sort {|x,y| x<=>y}
       for i in 0..2
         if (temp[i] == temp[i+1]-1) && (temp[i+1] == temp[i+2]-1) && (temp[i+2] == temp[i+3]-1) && (temp[i+3] == temp[i+4]-1)
-          win_combination = "isStraight"
-          marker_of_win = 1
+          #checking if cards in your hands present in win combination
+          if ((temp[i]==hands[0]) || (temp[i+1]==hands[0]) || (temp[i+2]==hands[0]) || (temp[i+3]==hands[0]) || (temp[i+4]==hands[0]) || (temp[i]==hands[1]) || (temp[i+1]==hands[1]) || (temp[i+2]==hands[1]) || (temp[i+3]==hands[1]) || (temp[i+4]==hands[1]))
+            win_combination = "isStraight"
+            marker_of_win = 1
+          end
         end
       end
     end
@@ -136,6 +133,7 @@
             count = count+1
             if count > 4
               win_combination = "isFlush"
+              marker_of_win = 1
             end
           end
         end
@@ -175,16 +173,32 @@
         end
       end
     end
-#    return win_combination
-#  end
-  #combinations(a1, hands)
+    return win_combination
+  end
 
 
-#  win_combination = combinations(a, hands)
+  #the combination at the hands of the player
+  hands = [cards[0], cards[6]]
+  puts "Cards in your hands is"
+  conversion(hands, hash_massive)
+  #the combination on the table
+  table = [cards[1], cards[2], cards[3], cards[4], cards[5]]
+  puts "Cards on the table is"
+  conversion(table, hash_massive)
+
+  #sorting cards
+  a1 = sorting(cards)
+
+  #definition nameofwincombination
+  win_combination = combinations(a1, hands, marker_of_win)
   puts win_combination
 
- time_finish = Time.now
+  #names of win cards
+  conversion(win_cards, hash_massive)
 
- time_for_calculating = time_finish - time_start
+  #time when program will been stopped
+  time_finish = Time.now
 
+  #the calculation will take time:
+  time_for_calculating = time_finish - time_start
   puts time_for_calculating
