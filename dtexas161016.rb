@@ -5,6 +5,9 @@
 
   #add 52 cards
   a = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52]
+
+  hash_massive = {1 => "2 heart", 2 => "3 heart", 3 => "4 heart", 4 => "5 heart", 5 => "6 heart", 6 => "7 heart", 7 => "8 heart", 8 => "9 heart", 9 => "10 heart", 10 => "jack heart", 11 => "queen heart", 12 => "king heart", 13 => "ace heart", 14 => "2 diamond", 15 => "3 diamond", 16 => "4 diamond", 17 => "5 diamond", 18 => "6 diamond", 19 => "7 diamond", 20 => "8 diamond", 21 => "9 diamond", 22 => "10 diamond", 23 => "jack diamond", 24 => "queen diamond", 25 => "king diamond", 26 => "ace diamond", 27 => "2 club", 28 => "3 club", 29 => "4 club", 30 => "5 club", 31 => "6 club", 32 => "7 club", 33 => "8 club", 34 => "9 club", 35 => "10 club", 36 => "jack club", 37 => "queen club", 38 => "king club", 39 => "ace club", 40 => "2 spade", 41 => "3 spade", 42 => "4 spade", 43 => "5 spade", 44 => "6 spade", 45 => "7 spade", 46 => "8 spade", 47 => "9 spade", 48 => "10 spade", 49 => "jack spade", 50 => "queen spade", 51 => "king spade", 52 => "ace spade"}
+
   cards = []
   cards = a.shuffle.first(7)
   cards.shuffle!
@@ -29,10 +32,26 @@
   a1 = sorting(m1)
   puts "a1 = #{a1.inspect}"
 
-  ########################
-  # definitions if combinations is present
 
-  #def combinations(a, hands)
+  #method for the conversion of numbers to cards from hash - работает.написанному верить.
+  def conversion(arr, hash_massive)
+    rtrn = ""
+    arr.each do |i|
+      if hash_massive.key? i
+        rtrn = hash_massive[i]
+        puts rtrn
+      end
+    end
+  end
+
+
+
+
+  ########################
+  # defining if any combination is present
+
+
+  #def combinations(a1, hands)
     marker_of_win = 0
     #isRoyalFlush
     if marker_of_win != 1
@@ -156,7 +175,12 @@
         end
       end
     end
+#    return win_combination
+#  end
   #combinations(a1, hands)
+
+
+#  win_combination = combinations(a, hands)
   puts win_combination
 
  time_finish = Time.now
