@@ -37,16 +37,14 @@ class Holdem
   end
 
   # method for defining if any win combination is present
-  def self.combinations(a1, hands, marker_of_win)
+  def self.combinations(a1, marker_of_win)
     #isRoyalFlush
     if marker_of_win != 1
       for i in 0..6 do
         if ((a1[i]%13==0)&&(a1[i-1]==(a1[i]-1))&&(a1[i-2]==(a1[i]-2))&&(a1[i-3]==(a1[i]-3))&&(a1[i-4]==(a1[i]-4)))
            for s in 0..2 do
-             if (a1[i]==hands[s]||a1[i+1]==hands[s]||a1[i+2]==hands[s]||a1[i+3]==hands[s]||a1[i+4]==hands[s])
-              win_combination = "is RoyalFlush"
-              marker_of_win = 1
-            end
+            win_combination = 'is RoyalFlush'
+            marker_of_win = 1
           end
         end
       end
@@ -58,7 +56,7 @@ class Holdem
         for j in 0..6 do
           for i in 1..48  do
             if (a1[j*k]==i && a1[j*k+1]==(i+1) && a1[j*k+2]==(i+2) && a1[j*k+3]==(i+3) && a1[j*k+4]==(i+4))
-            win_combination = "is StraightFlush"
+            win_combination = 'is StraightFlush'
             marker_of_win = 1
             end
           end
@@ -70,25 +68,49 @@ class Holdem
     if marker_of_win != 1
       for j in 0..3
         if ((a1[j])==(a1[j+1]-13)&&((a1[j+1])==(a1[j+2]-13)) && ((a1[j+2]) == (a1[j+3]-13)))
-          win_combination = "is Quads"
+          win_combination = 'is Quads'
           marker_of_win = 1
         end
       end
     end
     #isFullHouse
     if marker_of_win != 1
-      for j in 0..4
-        if (a1[j] == (a1[j+1]-13)) && ((a1[j+1]) == (a1[j+2]-13))
-          for i in 0..5
-            if (a1[i] == (a1[i+1]-13))
-              if (i!=j)
-                win_combination = "is FullHouse"
-                marker_of_win = 1
+      # for j in 0..4
+      #   if (a1[j] == (a1[j+1]-13)) && ((a1[j+1]) == (a1[j+2]-13))
+      #     for i in 0..5
+      #       if (a1[i] == (a1[i+1]-13))
+      #         if (i!=j)
+      #           win_combination = 'is FullHouse'
+      #           marker_of_win = 1
+      #         end
+      #       end
+      #     end
+      #   end
+      # end
+      for i in 0..6
+        puts a1[i]
+        count_three = 0
+        for j in 0..6
+          if ((a1[i] == a1[j]-13) || (a1[i] == a1[j]-26) || (a1[i] == a1[j]-39))
+            count_three = count_three + 1
+            if (count_three >= 3)
+              for k in 0..6
+              count_two = 0
+                for l in 0..6
+                  if ((a1[k] = a1[l]-13) || (a1[k] = a1[l]-26) || (a1[k] = a1[l]-39) && ((a1[k] != a1[i]) && (a1[l] != a1[j])))
+                    count_two = count_two + 1
+                    if (count_two >= 2)
+                      win_combination = 'is FullHouse'
+                      marker_of_win = 1
+                    end
+                  end
+                end
               end
             end
           end
         end
       end
+
     end
     #isStraight
     if marker_of_win != 1
@@ -107,7 +129,7 @@ class Holdem
       temp = temp.sort {|x,y| x<=>y}
       for i in 0..2
         if (temp[i] == temp[i+1]-1) && (temp[i+1] == temp[i+2]-1) && (temp[i+2] == temp[i+3]-1) && (temp[i+3] == temp[i+4]-1)
-          win_combination = "is Straight"
+          win_combination = 'is Straight'
           marker_of_win = 1
         end
       end
@@ -120,7 +142,7 @@ class Holdem
           if (a1[j]>(13*(i-1)) && a1[j]<=(13*i))
             count = count+1
             if count > 4
-              win_combination = "is Flush"
+              win_combination = 'is Flush'
               marker_of_win = 1
             end
           end
@@ -128,41 +150,63 @@ class Holdem
       end
     end
     #isSet
+    # if marker_of_win != 1
+    #   set_count = 0
+    #   a1.each do |i|
+    #     a1.each do |j|
+    #       if i == j-13 || i == j-26 || i = j- 39
+    #         set_count = set_count +1
+    #       end
+    #     end
+    #   end
+    #   if set_count == 3
+    #     win_combination = 'is Set'
+    #     marker_of_win = 1
+    #   end
+    # end
+    #isSet
     if marker_of_win != 1
-      for j in 0..4
-        if (a1[j] == (a1[j+1]-13)) && ((a1[j+1]) == (a1[j+2]-13))
-          win_combination = "is Set"
-          marker_of_win = 1
+
+      for i in 0..6
+        for j in 0..6
+          for k in 0..6
+
+              if (((a1[i] == (a1[j]-13)) && ((a1[j]) == (a1[k]-13))) )
+                win_combination = 'is Set'
+                marker_of_win = 1
+              end
+
+          end
         end
       end
     end
     #isTwoPair
     if marker_of_win != 1
-      for i in 0..5 do
-        count_of_pairs = 0
-        for k in 1..4 do
-          if (a1[i] == (a1[i+1]-13*k))
-            count_of_pairs = count_of_pairs + 1
-          end
-        end
-        if count_of_pairs >= 1
-            win_combination = "is TwoPairs"
-            marker_of_win = 1
-        end
-      end
+       for i in 0..5 do
+         count_of_pairs = 0
+         for k in 1..4 do
+           if (a1[i] == (a1[i+1]-13*k))
+             count_of_pairs = count_of_pairs + 1
+           end
+         end
+         if count_of_pairs >= 1
+             win_combination = 'is TwoPairs'
+             marker_of_win = 1
+         end
+       end
     end
     #isOnePair
     if marker_of_win != 1
       for i in 0..5 do
         for k in 1..4 do
           if (a1[i] == (a1[i+1]-13*k))
-            win_combination = "is OnePair"
+            win_combination = 'is OnePair'
           end
         end
       end
     end
     if marker_of_win != 1
-      win_combination = "is HighestCard"
+      win_combination = 'is HighestCard'
       marker_of_win = 1
     end
     return win_combination
@@ -171,19 +215,19 @@ class Holdem
 
   #the combination at the hands of the player
   hands = cards[0..2]
-  puts "Cards in your hands is"
+  puts 'Cards in your hands is'
   conversion(hands, hash_massive)
   #the combination on the table
   table = cards[2..7]
-  puts "Cards on the table is"
+  puts 'Cards on the table is'
   conversion(table, hash_massive)
 
   #sorting cards
   a1 = sorting(cards)
 
-  #definition nameofwincombination
-  win_combination = combinations(a1, hands, marker_of_win)
-  puts "Win combination " + win_combination
+  #definition name of win combination
+  win_combination = combinations(a1, marker_of_win)
+  puts 'Win combination ' + win_combination
 
   #names of win cards
   conversion(win_cards, hash_massive)
