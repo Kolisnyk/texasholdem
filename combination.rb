@@ -123,33 +123,29 @@ class Combination
   end
 
   def self.set(a1, marker_of_win)
-    set_count = 0
-    a1.each do |i|
-      a1.each do |j|
-        if i == j-13 || i == j-26 || i = j- 39
-          set_count = set_count +1
-        end
-      end
-    end
-    if set_count == 3
-      marker_of_win = 1
-    end
-
-    # #isSet
-    #
-    #   for i in 0..6
-    #     for j in 0..6
-    #       for k in 0..6
-
-    #           if (((a1[i] == (a1[j]-13)) && ((a1[j]) == (a1[k]-13))) )
-    #             win_combination = 'is Set'
-    #             marker_of_win = 1
-    #           end
-
-    #       end
+    # set_count = 0
+    # a1.each do |i|
+    #   a1.each do |j|
+    #     if i == j-13 || i == j-26 || i = j- 39
+    #       set_count = set_count +1
     #     end
-    #
+    #   end
     # end
+    # if set_count == 3
+    #   marker_of_win = 1
+    # end
+
+
+      for i in 0..6
+        for j in 0..6
+          for k in 0..6
+              if (((a1[i] == (a1[j]-13)) && ((a1[j]) == (a1[k]-13))) )
+                win_combination = 'is Set'
+                marker_of_win = 1
+              end
+          end
+        end
+    end
     return marker_of_win
   end
 
