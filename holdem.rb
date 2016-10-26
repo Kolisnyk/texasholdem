@@ -75,30 +75,21 @@ class Holdem
     end
     #isFullHouse
     if marker_of_win != 1
-      # for j in 0..4
-      #   if (a1[j] == (a1[j+1]-13)) && ((a1[j+1]) == (a1[j+2]-13))
-      #     for i in 0..5
-      #       if (a1[i] == (a1[i+1]-13))
-      #         if (i!=j)
-      #           win_combination = 'is FullHouse'
-      #           marker_of_win = 1
-      #         end
-      #       end
-      #     end
-      #   end
-      # end
       for i in 0..6
-        puts a1[i]
-        count_three = 0
-        for j in 0..6
+        #count_three = 1
+        for j in i..6
+          count_three = 1
           if ((a1[i] == a1[j]-13) || (a1[i] == a1[j]-26) || (a1[i] == a1[j]-39))
             count_three = count_three + 1
+            puts count_three
             if (count_three >= 3)
               for k in 0..6
-              count_two = 0
-                for l in 0..6
-                  if ((a1[k] = a1[l]-13) || (a1[k] = a1[l]-26) || (a1[k] = a1[l]-39) && ((a1[k] != a1[i]) && (a1[l] != a1[j])))
+              #count_two = 1
+                for l in k..6
+                  count_two = 1
+                  if ((a1[k] = a1[l]-13) || (a1[k] = a1[l]-26) || (a1[k] = a1[l]-39) && ((k != i) && (l != j)))
                     count_two = count_two + 1
+                      puts count_two
                     if (count_two >= 2)
                       win_combination = 'is FullHouse'
                       marker_of_win = 1
@@ -110,7 +101,6 @@ class Holdem
           end
         end
       end
-
     end
     #isStraight
     if marker_of_win != 1
@@ -150,20 +140,20 @@ class Holdem
       end
     end
     #isSet
-    # if marker_of_win != 1
-    #   set_count = 0
-    #   a1.each do |i|
-    #     a1.each do |j|
-    #       if i == j-13 || i == j-26 || i = j- 39
-    #         set_count = set_count +1
-    #       end
-    #     end
-    #   end
-    #   if set_count == 3
-    #     win_combination = 'is Set'
-    #     marker_of_win = 1
-    #   end
-    # end
+    if marker_of_win != 1
+      set_count = 0
+      a1.each do |i|
+        a1.each do |j|
+          if i == j-13 || i == j-26 || i = j- 39
+            set_count = set_count +1
+          end
+        end
+      end
+      if set_count == 3
+        win_combination = 'is Set'
+        marker_of_win = 1
+      end
+    end
     #isSet
     if marker_of_win != 1
 

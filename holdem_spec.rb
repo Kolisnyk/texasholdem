@@ -39,16 +39,22 @@ describe 'holdem' do
     end
   end
 
-  # context 'Set' do
-  #   it 'should do Set' do
-  #     expect( Holdem.combinations([1, 14, 27, 39, 41, 43, 45], 0)).to eq("is Set")
-  #   end
-  # end
+  context 'Set' do
+    it 'should do Set' do
+      expect( Holdem.combinations([1, 14, 27, 39, 41, 43, 45], 0)).to eq("is Set")
+    end
+  end
 
-  # context 'TwoPairs' do
-  #   it 'should do TwoPairs' do
-  #     expect( Holdem.combinations([1, 15, 28, 30, 41, 48, 50], 0)).to eq("is TwoPairs")
-  #   end
-  # end
+   context 'TwoPairs' do
+     it 'should do TwoPairs' do
+       expect( Holdem.combinations([1, 14, 28, 30, 41, 48, 50], 0)).to eq("is TwoPairs")
+     end
+   end
+
+   context 'OnePair' do
+     it 'should do OnePair' do
+       expect( Holdem.combinations([1, 14, 23, 30, 41, 48, 51], 0)).to eq("is OnePair")
+     end
+   end
 
 end
