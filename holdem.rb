@@ -6,7 +6,7 @@ class Holdem < Combination
   #nember of iterations for looking for combination
   iterator_count = 0
   #name of win combination
-  win_combination = ""
+  win_combination = " "
   #marker if win combination founded
   marker_of_win = 0
   #massive of win combinations
@@ -32,9 +32,58 @@ class Holdem < Combination
   a1 = sorting(cards)
 
   #definition name of win combination
-  win_combination = Combination.combination(a1, marker_of_win)
-  puts 'Win combination ' + win_combination
+  if (marker_of_win != 1)
+    marker_of_win = Combination.royal_flush(a1, marker_of_win)
+    puts marker_of_win
+    win_combination = 'is RoyalFlush'
+  end
 
+  if (marker_of_win != 1)
+    marker_of_win = Combination.straight_flush(a1, marker_of_win)
+    win_combination = 'is StraightFlush'
+  end
+
+  if (marker_of_win != 1)
+    marker_of_win = Combination.quads(a1, marker_of_win)
+    win_combination = 'is Quads'
+  end
+
+  if (marker_of_win != 1)
+    marker_of_win = Combination.full_house(a1, marker_of_win)
+    win_combination = 'is FullHouse'
+  end
+
+  if (marker_of_win != 1)
+    marker_of_win = Combination.straight(a1, marker_of_win)
+    win_combination = 'is Straight'
+  end
+
+  if (marker_of_win != 1)
+    marker_of_win = Combination.flush(a1, marker_of_win)
+    win_combination = 'is Flush'
+  end
+
+  if (marker_of_win != 1)
+    marker_of_win = Combination.set(a1, marker_of_win)
+    win_combination = 'is Set'
+  end
+
+  if (marker_of_win != 1)
+    marker_of_win = Combination.two_pair(a1, marker_of_win)
+    win_combination = 'is TwoPairs'
+  end
+
+  if (marker_of_win != 1)
+    marker_of_win = Combination.one_pair(a1, marker_of_win)
+    win_combination = 'is OnePair'
+  end
+
+  if (marker_of_win != 1)
+    marker_of_win = Combination.highest_card(a1, marker_of_win)
+    win_combination = 'is HighestCard'
+  end
+
+  puts 'Win combination ' + win_combination
   #names of win cards
   Combination.conversion(win_cards, hash_massive)
 
