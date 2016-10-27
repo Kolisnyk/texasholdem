@@ -20,7 +20,7 @@ class Holdem < Combination
   cards = a.shuffle.first(7)
 
   #the combination at the hands of the player
-  hands = cards[0..2]
+  hands = cards[0..1]
   puts 'Cards in your hands is'
   Combination.conversion(hands, hash_massive)
   #the combination on the table
