@@ -5,15 +5,15 @@ require_relative 'combination.rb'
 describe 'combination' do
   context 'RoyalFlush' do
     it 'should do 1' do
-      expect(Combination.royal_flush([1, 14, 48, 49, 50, 51, 52], 0)).to
-      eq(1)
+      expect(Combination.royal_flush([1, 14, 48, 49, 50, 51,
+                                      52], 0)).to eq(1)
     end
   end
 
   context 'StraightFlush' do
     it 'should do 1' do
-      expect(Combination.straight_flush([1, 14, 47, 48, 49, 50, 51], 0)).to
-      eq(1)
+      expect(Combination.straight_flush([1, 14, 47, 48, 49, 50,
+                                         51], 0)).to eq(1)
     end
   end
 
