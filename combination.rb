@@ -1,9 +1,9 @@
+# This class is methods
 class Combination
 
-  ##! methods for use
-  #method for the conversion of numbers to cards from hash - работает,написанному верить.
+  # method for the conversion of numbers to cards from hash
   def self.conversion(arr, hash_massive)
-    rtrn = ""
+    rtrn = ''
     arr.each do |i|
       if hash_massive.key? i
         rtrn = hash_massive[i]
@@ -14,17 +14,14 @@ class Combination
 
   # massive sorting
   def self.sorting(massive)
-    ret = []
     ret = massive.sort {|x,y| x<=>y}
-    return [*ret]
   end
 
-  # methods for defining if any win combination is present and name of this combination
+  # methods for defining if any win combination is present
   def self.royal_flush(a1, marker_of_win)
-  #isRoyalFlush
     if marker_of_win != 1
       for i in 0..6 do
-        if ((a1[i]%13==0)&&(a1[i-1]==(a1[i]-1))&&(a1[i-2]==(a1[i]-2))&&(a1[i-3]==(a1[i]-3))&&(a1[i-4]==(a1[i]-4)))
+        if ((a1[i]%13 == 0)&&(a1[i-1]==(a1[i]-1))&&(a1[i-2]==(a1[i]-2))&&(a1[i-3]==(a1[i]-3))&&(a1[i-4]==(a1[i]-4)))
            for s in 0..2 do
             marker_of_win = 1
           end
