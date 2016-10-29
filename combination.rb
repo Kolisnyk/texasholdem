@@ -50,8 +50,8 @@ class Combination
 
   def self.quads(a1, marker_of_win)
     for j in 0..3
-      if a1[j] == a1[j + 1] - 13 && (a1[j + 1] == a1[j + 2] -
-       13) && (a1[j + 2] == a1[j + 3] - 13)
+      if (a1[j]) == (a1[j + 1] - 13) && ((a1[j + 1]) == (a1[j + 2] -
+       13)) && ((a1[j + 2]) == (a1[j + 3] - 13))
         marker_of_win = 1
       end
     end
@@ -60,9 +60,9 @@ class Combination
 
   def self.full_house(a1, marker_of_win)
     for j in 0..4
-        if a1[j] == a1[j + 1] - 13 && a1[j + 1] == a1[j + 2] - 13
+        if (a1[j] == (a1[j + 1] - 13)) && ((a1[j + 1]) == (a1[j + 2] - 13))
           for i in 0..5
-            if a1[i] == a1[i + 1] - 13
+            if a1[i] == (a1[i + 1] - 13)
               if i != j
                 marker_of_win = 1
               end
