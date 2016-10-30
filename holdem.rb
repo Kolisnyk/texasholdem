@@ -1,4 +1,4 @@
-
+require_relative 'agreement.rb'
 require_relative 'combination.rb'
 # This class is for initiation and output
 class Holdem < Combination
@@ -37,14 +37,14 @@ class Holdem < Combination
   # the combination at the hands of the player
   hands = cards[0..1]
   puts 'Cards in your hands is'
-  Combination.conversion(hands, hash_massive)
+  Agreement.conversion(hands, hash_massive)
   # the combination on the table
   table = cards[2..7]
   puts 'Cards on the table is'
-  Combination.conversion(table, hash_massive)
+  Agreement.conversion(table, hash_massive)
 
   # sorting cards
-  a1 = sorting(cards)
+  a1 = Agreement.sorting(cards)
 
   # definition name of win combination
   if marker_of_win != 1
@@ -99,7 +99,7 @@ class Holdem < Combination
 
   puts 'Win combination ' + win_combination
   # names of win cards
-  Combination.conversion(win_cards, hash_massive)
+  Agreement.conversion(win_cards, hash_massive)
 
   # time when program will been stopped
   time_finish = Time.now
