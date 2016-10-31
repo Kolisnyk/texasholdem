@@ -93,9 +93,7 @@ class Holdem < Combination
     win_combination = 'is OnePair'
   end
 
-  if marker_of_win != 1
-    win_combination = 'is HighestCard'
-  end
+  win_combination = 'is HighestCard' if marker_of_win != 1
 
   puts 'Win combination ' + win_combination
   # names of win cards
